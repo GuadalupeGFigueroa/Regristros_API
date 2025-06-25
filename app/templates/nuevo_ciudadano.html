@@ -30,34 +30,56 @@
             <input type="email" id="correoElectronico" name="correoElectronico"><br><br>
         </fieldset>
 
-        <!-- Dirección con validación por código postal -->
+        <!-- Dirección con validación por municipio -->
          <fieldset>
-            <legend>Dirección de notificaciones</legend>
+            <legend>Ubicación de residencia</legend>
+
+            <label for="municipio">Municipio:</label><br>
+            <input type="text" id="municipio" name="municipio" required><br><br>
+        </fieldset>
+
+        <!-- Contenedor para selectores dinámicos de Llanera-->
+
+        <div id="direccion_estructurada" style="display: none;">
+            <label for="tipo_via">Tipo de vía:</label><br>
+            <select id="tipo_via" name="tipo_via"></select><br><br>
+
+            <label for="nombre_via">Nombre de la vía:</label><br>
+            <select id="nombre_via" name="nombre_via"></select><br><br>
+
+            <label for="numero">Número:</label><br>
+            <select id="numero" name="numero"></select><br><br>
+
+            <label for="piso">Piso:</label><br>
+            <select id="piso" name="piso"></select><br><br>
+
+            <label for="puerta">Puerta:</label><br>
+            <select id="puerta" name="puerta"></select><br><br>
 
             <label for="codPostal">Código postal:</label><br>
-            <input type="text" id="codPostal" name="codPostal" required><br><br>
+            <select id="codPostal" name="codPostal"></select><br><br>
+        
+            <!-- Contenedor para direcciones fuera de Llanera-->
+        <div id="direccion_manual" style="display: none;">
+            <label for="tipo_via_manual">Tipo de vía:</label><br>
+            <input type="text" id="tipo_via_manual" name="tipo_via"><br><br>
 
-            <div id="direccion_estructurada" style="display: none;">
-                <label for="tipo_via">Tipo de vía:</label><br>
-                <select id="tipo_via" name="tipo_via"></select><br><br>
+            <label for="nombre_via_manual">Nombre de la vía:</label><br>
+            <input type="text" id="nombre_via_manual" name="nombre_via"><br><br>
 
-                <label for="nombre_via">Nombre de la vía</label><br>
-                <select id="nombre_via" name="nombre_via"></select><br><br>
+            <label for="numero_manual">Número:</label><br>
+            <input type="number" id="numero_manual" name="numero"><br><br>
 
-                <label for="numero">Número:</label><br>
-                <select type="number" id="numero" name="numero"></select><br><br>
+            <label for="piso_manual">Piso:</label><br>
+            <input type="text" id="piso_manual" name="piso"><br><br>
 
-                <label for="piso">Piso:</label><br>
-                <select id="piso" name="piso"></select><br><br>
+            <label for="puerta_manual">Puerta:</label><br>
+            <input type="text" id="puerta_manual" name="puerta"><br><br>
 
-                <label for="puerta">Puerta:</label><br>
-                <select type="text" id="puerta" name="puerta"></select><br><br>
-            </div>
-
-            <div id="direccion_externa_llanera" style="display: none;">
-                <label for="dirección_texto">Dirección:</label><br>
-                <input type="text" id="direccion_texto" name="direccion_texto" autocomplete="off"><br><br>
-            </div>
+            <label for="codPostal_manual">Código postal:</label><br>
+            <input type="text" id="codPostal_manual" name="codPostal"><br><br>
+            
+        </div>
          </fieldset>
 
          <!-- Campo opcional -->
