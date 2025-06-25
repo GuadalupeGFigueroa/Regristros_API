@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% block title %}Resultado de búsqueda{% endblock %}
+{% block content %}
+    <h2>Resultados de la búsqueda</h2>
+
+    {% if ciudadano %}
+    <h3>Datos personales</h3>    
+    <ul>
+            <li><strong>Nombre:</strong> {{ ciudadano.nombre}}</li>
+            <li><strong>Primer apellido:</strong> {{ ciudadano.apellido1}}</li>
+            <li><strong>Segundo apellido::</strong> {{ ciudadano.apellido2 or '-'}}</li>
+            <li><strong>NIF/NIE/Pasaporte:</strong>{{ciudadano.nif}}</li>
+            <li><strong>Fecha de nacimiento:</strong>{{ciudadano.fechaNacimiento | replace("T00:00:00", "") }}</li>
+            <li><strong>Teléfono:</strong> {{ ciudadano.telefono or 'No disponible' }}</li>
+            <li><strong>Correo electrónico:</strong> {{ ciudadano.correoElectronico or 'No disponible'}}</li>
+            <li><strong>Dirección:</strong>{{ciudadano.direccion}}</li>
+        </ul>
+    <h3>Domicilios regisgtrados</h3>
+    {% if ciudadano.domCiudadanos %}
+        <ul>
+            {%for domicilio in ciudadano.domCiudadanos %}
+            <li>
+                {{ domicilio.direccion or domicilio.direccionSinSufijos }}
+                {% if domicilio.esPrincipal or domicilio.lEsPrincipal %}
+                    <strong>(domicilio principal)</strong>
+                    {% endif}
+            </li>
+            {% endfor %}
+        </ul>
+        {% else %} 
+            <p> No hay domicilios registrados</p>
+        {% endif %}
+
+        <br>
+        <a href="{{ url_for('editar_ciudadano', id=ciudadano.id) }}" class="boton-editar">✏️ Editar ciudadano</a>
+    {% else %}
+        <p>No se encontró ningún ciudadano con los datos proporcionados.</p>
+    {% endif %}
+
+    <br><br>
+    <a href="{{ url_for('buscar') }}">← Volver a buscar</a>
+{% endblock %}
+

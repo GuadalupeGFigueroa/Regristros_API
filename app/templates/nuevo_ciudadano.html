@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% block title %}Nuevo registro{% endblock%}
+{%block content%}
+    <h2>Realizar nuevo registro</h2>
+    <form action="{{ url_for('nuevo')}}" method="post" autocomplete="off">
+    
+         <fieldset>
+            <legend>Datos personales</legend>
+            <label for="nombre">Nombre:</label><br>
+            <input type="text" id="nombre" name="nombre" required><br><br>
+            
+            <label for="apellido1">Primer apellido</label><br>
+            <input type="text" id="apellido1" name="apellido1" required><br><br>
+
+            <label for="apellido2">Segundo apellido</label><br>
+            <input type="text" id="apellido2" name="apellido2"><br><br>
+
+            <label for="fecha_nacimiento">Fecha de nacimiento (DD/MM/AAAA):</label><br>
+            <input type="text" id="fecha_nacimiento" name="fecha_nacimiento" placeholder="DD/MM/AAAA" required><br><br>
+
+           
+         </fieldset>
+        
+        <fieldset>
+            <legend>Datos de contacto</legend>
+            <label for="telefono">Teléfono de contacto</label><br>
+            <input type="tel" id="telefono" name="telefono" required><br><br>
+
+            <label for="correoElectronico">Correo electrónico</label><br>
+            <input type="email" id="correoElectronico" name="correoElectronico"><br><br>
+        </fieldset>
+
+        <!-- Dirección con validación por código postal -->
+         <fieldset>
+            <legend>Dirección de notificaciones</legend>
+
+            <label for="codPostal">Código postal:</label><br>
+            <input type="text" id="codPostal" name="codPostal" required><br><br>
+
+            <div id="direccion_estructurada" style="display: none;">
+                <label for="tipo_via">Tipo de vía:</label><br>
+                <select id="tipo_via" name="tipo_via"></select><br><br>
+
+                <label for="nombre_via">Nombre de la vía</label><br>
+                <select id="nombre_via" name="nombre_via"></select><br><br>
+
+                <label for="numero">Número:</label><br>
+                <select type="number" id="numero" name="numero"></select><br><br>
+
+                <label for="piso">Piso:</label><br>
+                <select id="piso" name="piso"></select><br><br>
+
+                <label for="puerta">Puerta:</label><br>
+                <select type="text" id="puerta" name="puerta"></select><br><br>
+            </div>
+
+            <div id="direccion_externa_llanera" style="display: none;">
+                <label for="dirección_texto">Dirección:</label><br>
+                <input type="text" id="direccion_texto" name="direccion_texto" autocomplete="off"><br><br>
+            </div>
+         </fieldset>
+
+         <!-- Campo opcional -->
+          <fieldset>
+            <legend>Información adicional</legend>
+            <label for="observaciones">Observaciones</label><br>
+            <input type="text" id="observaciones" name="observaciones" autocomplete="off"><br><br>
+          </fieldset>
+
+          <button type="submit" onclick="return confirm('¿Estás seguro de que deseas guardar estos datos?')">Guardar</button>
+    </form>
+{% endblock %}

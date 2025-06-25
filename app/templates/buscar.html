@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block title %}Buscador{% endblock %}
+{% block content %}
+    <h2>Buscar ciudadano/a</h2>
+    <form action="{{ url_for('buscar')}}" method="post" autocomplete="off">
+        <label for="documentoIdentidad">DNI / NIE / Pasaporte: </label><br>
+        <input type="text" id="documentoIdentidad" name="documentoIdentidad" required><br><br>
+
+        <label for="fecha_nacimiento">Fecha de nacimiento: </label><br>
+        <input type="date" id="fecha_nacimiento" name="fecha_nacimiento" required><br><br>
+
+        <button type="submit">Buscar</button>
+    </form>
+    
+
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <ul class="flash-messages">
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+{% endblock %}

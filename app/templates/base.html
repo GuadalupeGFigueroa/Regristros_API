@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Registros ciudadanos{% endblock %}</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css')}}">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <ul>
+                <li><a href="{{ url_for('index') }}">Inicio</a></li>
+                <li><a href="{{ url_for('buscar')}}">Buscar ciudadano/a</a></li>
+                <li><a href="#">Panel admin</a></li><!-- aún sin definir -->
+                <li><a href="#">Cerrar sesión</a></li> <!-- futuro login/logout -->
+            </ul>
+        </nav>
+    </header>
+    <main>
+        {% block content %}
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <ul class="flashes">
+                    {% for category, message in messages %}
+                        <li class="{{ category }}">{{ message }}</li>
+                    {% endfor % }
+                </ul>
+            {% endif %}
+        {% endwith %}        
+        {% endblock %}
+    </main>
+</body>
+</html>

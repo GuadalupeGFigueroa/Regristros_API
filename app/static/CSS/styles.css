@@ -1,0 +1,50 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar {
+    background-color: #0c7cb4;
+    padding: 10px 20px;
+}
+
+.navbar ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+.navbar li {
+    margin-right: 20px;
+}
+
+.navbar a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.navbar a:hover {
+    text-decoration: underline;
+}
+
+.flashes {
+    list-style: none;
+    padding: 0;
+}
+
+.flashes li.success {
+    background-color: azure;
+    color: #155724;
+    padding: 0.5rem;
+    border-left: 4px solid black;
+}
+
+.flashes li.error {
+    background-color: #f8d7da;
+    color: #721c24;
+    padding: 0.5rem;
+    border-left: 4px solid black;
+}
