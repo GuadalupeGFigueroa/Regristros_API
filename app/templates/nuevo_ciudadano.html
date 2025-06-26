@@ -7,16 +7,16 @@
          <fieldset>
             <legend>Datos personales</legend>
             <label for="nombre">Nombre:</label><br>
-            <input type="text" id="nombre" name="nombre" required><br><br>
+            <input type="text" id="nombre" name="nombre" value="{{ nombre | default('') }}" required><br><br>
             
             <label for="apellido1">Primer apellido</label><br>
-            <input type="text" id="apellido1" name="apellido1" required><br><br>
+            <input type="text" id="apellido1" name="apellido1" value="{{ apellido1 | default('') }}" required><br><br>
 
             <label for="apellido2">Segundo apellido</label><br>
-            <input type="text" id="apellido2" name="apellido2"><br><br>
+            <input type="text" id="apellido2" name="apellido2" value="{{ apellido2 | default('') }}"><br><br>
 
             <label for="fecha_nacimiento">Fecha de nacimiento (DD/MM/AAAA):</label><br>
-            <input type="text" id="fecha_nacimiento" name="fecha_nacimiento" placeholder="DD/MM/AAAA" required><br><br>
+            <input type="text" id="fecha_nacimiento" name="fecha_nacimiento" placeholder="DD/MM/AAAA" value="{{ fecha_nacimiento | default('') }}" required><br><br>
 
            
          </fieldset>
@@ -24,10 +24,10 @@
         <fieldset>
             <legend>Datos de contacto</legend>
             <label for="telefono">Teléfono de contacto</label><br>
-            <input type="tel" id="telefono" name="telefono" required><br><br>
+            <input type="tel" id="telefono" name="telefono" value="{{ telefono | default('') }}" required><br><br>
 
             <label for="correoElectronico">Correo electrónico</label><br>
-            <input type="email" id="correoElectronico" name="correoElectronico"><br><br>
+            <input type="email" id="correoElectronico" name="correoElectronico" value="{{ correoElectronico | default('') }}"><br><br>
         </fieldset>
 
         <!-- Dirección con validación por municipio -->
@@ -35,7 +35,7 @@
             <legend>Ubicación de residencia</legend>
 
             <label for="municipio">Municipio:</label><br>
-            <input type="text" id="municipio" name="municipio" required><br><br>
+            <input type="text" id="municipio" name="municipio" value="{{ municipio | default('') }}" required><br><br>
         </fieldset>
 
         <!-- Contenedor para selectores dinámicos de Llanera-->
@@ -58,6 +58,7 @@
 
             <label for="codPostal">Código postal:</label><br>
             <select id="codPostal" name="codPostal"></select><br><br>
+        </div>
         
             <!-- Contenedor para direcciones fuera de Llanera-->
         <div id="direccion_manual" style="display: none;">
@@ -92,5 +93,5 @@
           <button type="submit" onclick="return confirm('¿Estás seguro de que deseas guardar estos datos?')">Guardar</button>
     </form>
     
-   <script src=""{{ url_for('static', filename='js/manejo_direccion.js')}}></script>
+   <script src="{{ url_for('static', filename='js/manejo_direccion.js')}}"></script>
 {% endblock %}

@@ -44,8 +44,9 @@ def buscar():
 
 
 @app.route('/nuevo', methods=['GET', 'POST'])
-def nuevo():
-    if request.method == 'POST':
+def nuevo():    
+
+    if request.method == 'POST':        
         nombre = request.form.get('nombre')
         apellido1 = request.form.get('apellido1')
         apellido2 = request.form.get('apellido2') or ''
@@ -54,18 +55,34 @@ def nuevo():
         telefono = request.form.get('telefono')
         correo = request.form.get('correoElectronico')
         cod_postal = request.form.get('codPostal')
+        municipio= request.form.get('municipio')
         direccion_manual = request.form.get('direccion_texto')
         observaciones = request.form.get('observaciones')
 
         # Validación
         if not nombre or not apellido1 or not fecha_nacimiento or not telefono:
             flash("Faltan campos obligatorios.")
-            return redirect(url_for('nuevo'))
+            return render_template(url_for('nuevo_ciudadano.html',
+                nombre=nombre,
+                apellido1=apellido1,
+                apellido2=apellido2,
+                fecha_nacimiento=fecha_nacimiento,
+                telefono=telefono,
+                correo=correo,
+                municipio=municipio,
+                observaciones=observaciones
+                ))
         
         guardar_resultado = True #simulación de guardado
 
         # Llamada al servicio SOAP/REST para verificar
-        respuesta = buscar_ciudadano_soap(dni, usuario=USUARIO_WSSEG, clave=CLAVE_WSSEG, entidad=ENTIDAD_CODIGO)
+        respuesta = buscar_ciudadano_soap(
+            documentoIdentidad=dni,
+            entidad_codigo=ENTIDAD_CODIGO,
+            usuario=USUARIO_WSSEG,
+            ws_segpass=CLAVE_WSSEG
+        )
+
         if respuesta:
             fecha = datetime.now().strftime("%d/%m/%Y %H:%M")
             datos_registro = {
@@ -73,6 +90,7 @@ def nuevo():
                 "Nombre": nombre, 
                 "Apellidos": f"{apellido1} {apellido2}",
                 "Fecha de nacimiento": fecha_nacimiento,
+                "Municipio": municipio,
                 "Dirección": direccion_manual,
                 "Observaciones": observaciones,
                 "Resultado de verificación API": respuesta
@@ -80,21 +98,15 @@ def nuevo():
             return render_template("Informe.html", datos=datos_registro, nombre=nombre, fecha=fecha)
         else:
             flash("⚠️ Hubo un problema al verificar los datos después de guardarlos.")
-        return redirect(url_for('nuevo'))
-
-        # Validar formato de fecha o normalizar
-        # Validar longitud y tipo del código postal
-
-        # Imprimir datos o enviarlos a la API
-        flash("Datos del formulario recibidos correctamente. (Aún no se envían)")
-        return redirect(url_for('nuevo'))
-    fecha = datetime.now().strftime("%d/%m/%Y %H:%M")
-    return render_template("informe.html", datos=respuesta, nombre=nombre, fecha=fecha)
-    return render_template('nuevo_ciudadano.html')
-
-dni = request.form.get('dni')
-nombre = request.form.get('nombre')
-
-
-print("✅ routes.py cargado correctamente")
+            return render_template("nuevo_ciudadano.html", 
+                nombre=nombre, 
+                apellido1=apellido1, 
+                apellido2=apellido2, 
+                fecha_nacimiento=fecha_nacimiento, 
+                telefono=telefono, 
+                correo=correo
+                )
+    
+    # GET: mostrar formulario vacío 
+    return render_template("nuevo_ciudadano.html")
 
