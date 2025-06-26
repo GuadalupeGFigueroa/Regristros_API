@@ -24,7 +24,7 @@ def index():
 def buscar():
     if request.method == 'POST':
         documentoIdentidad = request.form.get('documentoIdentidad')
-        fecha_nacimiento = request.form.get('fecha_nacimiento')
+        
 
         token = generar_wssegpass(CLAVE_WSSEG)  # según tus credenciales
         ciudadano = buscar_ciudadano_soap(
@@ -51,7 +51,6 @@ def nuevo():
         apellido1 = request.form.get('apellido1')
         apellido2 = request.form.get('apellido2') or ''
         dni = request.form.get('dni')
-        fecha_nacimiento = request.form.get('fecha_nacimiento')
         telefono = request.form.get('telefono')
         correo = request.form.get('correoElectronico')
         cod_postal = request.form.get('codPostal')
@@ -60,13 +59,12 @@ def nuevo():
         observaciones = request.form.get('observaciones')
 
         # Validación
-        if not nombre or not apellido1 or not fecha_nacimiento or not telefono:
+        if not nombre or not apellido1 or not telefono:
             flash("Faltan campos obligatorios.")
             return render_template(url_for('nuevo_ciudadano.html',
                 nombre=nombre,
                 apellido1=apellido1,
                 apellido2=apellido2,
-                fecha_nacimiento=fecha_nacimiento,
                 telefono=telefono,
                 correo=correo,
                 municipio=municipio,
@@ -89,7 +87,6 @@ def nuevo():
                 "DNI": dni,
                 "Nombre": nombre, 
                 "Apellidos": f"{apellido1} {apellido2}",
-                "Fecha de nacimiento": fecha_nacimiento,
                 "Municipio": municipio,
                 "Dirección": direccion_manual,
                 "Observaciones": observaciones,
@@ -102,7 +99,6 @@ def nuevo():
                 nombre=nombre, 
                 apellido1=apellido1, 
                 apellido2=apellido2, 
-                fecha_nacimiento=fecha_nacimiento, 
                 telefono=telefono, 
                 correo=correo
                 )
