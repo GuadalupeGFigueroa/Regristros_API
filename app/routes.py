@@ -5,6 +5,8 @@ from app.services.soap_sedipualba import buscar_ciudadano_soap
 import os
 from dotenv import load_dotenv
 from datetime import datetime
+from app.db.oracle_conn import obtener_conexion
+from flask import render_template, request, redirect, url_for, flash, jsonify
 
 load_dotenv()
 
@@ -102,6 +104,26 @@ def nuevo():
                 telefono=telefono, 
                 correo=correo
                 )
+
+@app.route('/api/vias')
+def obtener_vias():
+    municipio = request.args.get('municipio', '').lower()
+
+    if municipio == 'llanera':
+        try:
+            conn = obtener_conexion()
+            cursor = conn.cursor()
+            cursor.execute("SELECT nombre_via FROM vias WHERE municipio = 'Llanera'")
+            resultados = [fila[0] for fila in cursor.fetchall()]
+            return jsonify(resultados)
+        except Exception as e:
+            print(f"❌ Error al acceder a Oracle: {e}")
+            return jsonify([])
+        finally:
+            cursor.close()
+            conn.close()
+    else:
+        return jsonify([])
     
     # GET: mostrar formulario vacío 
     return render_template("nuevo_ciudadano.html")
