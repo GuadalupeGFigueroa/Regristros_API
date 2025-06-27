@@ -11,7 +11,7 @@ PASSWORD = os.getenv("ORACLE_PASSWORD")
 DNS = os.getenv("ORACLE_DNS") # Puede ser host: puerto/servicio
 
 try:
-    conn = oracledb.connect(user=USER, password=PASSWORD, dsn=DSN)
+    conn = oracledb.connect(user=USER, password=PASSWORD, dns=DNS)
     cursor = conn.cursor()
     cursor.execute("SELECT 'Conexión OK desde Flask + oracledb' FROM dual")
     print(cursor.fetchone()[0])
