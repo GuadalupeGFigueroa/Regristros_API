@@ -8,19 +8,22 @@ load_dotenv()
 
 USER = os.getenv("ORACLE_USER")
 PASSWORD = os.getenv("ORACLE_PASSWORD")
-DNS = os.getenv("ORACLE_DNS") # Puede ser host: puerto/servicio
+DSN = os.getenv("ORACLE_DSN") # Puede ser host: puerto/servicio
+
 
 try:
-    conn = oracledb.connect(user=USER, password=PASSWORD, dns=DNS)
+    conn = oracledb.connect(user=USER, password=PASSWORD, dsn=DSN)
+
     cursor = conn.cursor()
     cursor.execute("SELECT 'Conexión OK desde Flask + oracledb' FROM dual")
     print(cursor.fetchone()[0])
 except Exception as e:
     print("❌ Error al conectar:", e)
 finally:
-    cursor.close()
-    conn.close()
-
+    if 'cursor' in locals():
+        cursor.close()
+    if 'conn' in locals():
+        conn.close()
 
 def obtener_conexion():
-    return oracledb.connect(user=USER, password=PASSWORD, dns=DNS)
+    return oracledb.connect(user=USER, password=PASSWORD, dsn=DSN)
