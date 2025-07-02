@@ -2,7 +2,7 @@
 {% block title %}Buscador{% endblock %}
 {% block content %}
     <h2>Buscar ciudadano/a</h2>
-    <form action="{{ url_for('buscar')}}" method="post" autocomplete="off">
+    <form method="POST" action="{{ url_for('direcciones.buscar') }}">
         <label for="documentoIdentidad">DNI / NIE / Pasaporte: </label><br>
         <input type="text" id="documentoIdentidad" name="documentoIdentidad" required><br><br>
 

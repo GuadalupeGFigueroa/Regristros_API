@@ -4,13 +4,14 @@
         <meta charset="UTF-8">
         <title>{% block title %}Registros ciudadanos{% endblock %}</title>
         <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css')}}">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
     <header>
         <nav class="navbar">
             <ul>
-                <li><a href="{{ url_for('index') }}">Inicio</a></li>
-                <li><a href="{{ url_for('buscar')}}">Buscar ciudadano/a</a></li>
+                <li><a href="{{ url_for('direcciones.index') }}">Inicio</a></li>
+                <li><a href="{{ url_for('direcciones.buscar')}}">Buscar ciudadano/a</a></li>
                 <li><a href="#">Panel admin</a></li><!-- aún sin definir -->
                 <li><a href="#">Cerrar sesión</a></li> <!-- futuro login/logout -->
             </ul>
@@ -29,5 +30,8 @@
         {% endwith %}        
         {% endblock %}
     </main>
+<footer>
+    <!-- ¿Logos del Ayuntamiento? -->
+</footer>
 </body>
 </html>

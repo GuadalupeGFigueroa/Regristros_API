@@ -1,4 +1,3 @@
-from app import app
 from flask import render_template, request, redirect, url_for, flash
 from app.services.auth_service import generar_wssegpass
 from app.services.soap_sedipualba import buscar_ciudadano_soap
@@ -7,6 +6,9 @@ from dotenv import load_dotenv
 from datetime import datetime
 from app.db.oracle_conn import obtener_conexion
 from flask import render_template, request, redirect, url_for, flash, jsonify
+from flask import Blueprint, request, jsonify
+
+direcciones_bp = Blueprint('direcciones', __name__)
 
 load_dotenv()
 
@@ -17,17 +19,16 @@ CLAVE_WSSEG = os.getenv('WSSEG_PASS')
 ENTIDAD_CODIGO = os.getenv('WSSEG_ENTIDAD')
 
 #Ruta de inicio
-@app.route('/')
+@direcciones_bp.route('/')
 def index():
     return render_template('index.html')
 
 # Buscar
-@app.route('/buscar', methods=['GET', 'POST'])
+@direcciones_bp.route('/buscar', methods=['GET', 'POST'])
 def buscar():
     if request.method == 'POST':
         documentoIdentidad = request.form.get('documentoIdentidad')
         
-
         token = generar_wssegpass(CLAVE_WSSEG)  # según tus credenciales
         ciudadano = buscar_ciudadano_soap(
             documentoIdentidad=documentoIdentidad,
@@ -40,12 +41,12 @@ def buscar():
             return render_template('ventana_resultados.html', ciudadano=ciudadano)
         else:
             flash("Ciudadano/a no encontrado")
-            return redirect(url_for('buscar'))
+            return redirect(url_for('direcciones.buscar'))
 
     return render_template('buscar.html')
 
 
-@app.route('/nuevo', methods=['GET', 'POST'])
+@direcciones_bp.route('/nuevo', methods=['GET', 'POST'])
 def nuevo():    
 
     if request.method == 'POST':        
@@ -63,7 +64,7 @@ def nuevo():
         # Validación
         if not nombre or not apellido1 or not telefono:
             flash("Faltan campos obligatorios.")
-            return render_template(url_for('nuevo_ciudadano.html',
+            return render_template('nuevo_ciudadano.html',
                 nombre=nombre,
                 apellido1=apellido1,
                 apellido2=apellido2,
@@ -71,7 +72,7 @@ def nuevo():
                 correo=correo,
                 municipio=municipio,
                 observaciones=observaciones
-                ))
+                )
         
         guardar_resultado = True #simulación de guardado
 
@@ -104,8 +105,10 @@ def nuevo():
                 telefono=telefono, 
                 correo=correo
                 )
+        # 
+    return render_template("nuevo_ciudadano.html")
 
-@app.route('/api/vias')
+@direcciones_bp.route('/api/vias')
 def obtener_vias():
     municipio = request.args.get('municipio', '').lower()
 
@@ -128,3 +131,66 @@ def obtener_vias():
     # GET: mostrar formulario vacío 
     return render_template("nuevo_ciudadano.html")
 
+# ----- Rutas para formulario de dirección -----
+@direcciones_bp.route("/api/localidades", methods=["GET"])
+def obtener_localidades():
+    try:
+        conn = obtener_conexion()
+        cursor = conn.cursor()
+        cursor.execute("SELECT nombre FROM LOCALIDAD ORDER BY nombre")
+        localidades = cursor.fetchall()
+        return jsonify([loc[0] for loc in localidades])
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+    finally:
+        if 'cursor' in locals(): cursor.close()
+        if 'conn' in locals(): conn.close()
+
+@direcciones_bp.route("/api/tipos-via", methods=["GET"])
+def obtener_tipos_via():
+    try:
+        conn = obtener_conexion()
+        cursor = conn.cursor()
+        cursor.execute("SELECT nombre FROM TIPO_VIA ORDER BY nombre")
+        tipos = cursor.fetchall()
+        return jsonify([tipo[0] for tipo in tipos])
+    except Exception as e: 
+        return jsonify({"error": str(e)}), 500
+    finally:
+        if 'cursor' in locals(): cursor.close()
+        if 'conn' in locals(): conn.close()
+
+@direcciones_bp.route("/api/codigos-postales", methods = ["GET"])
+def obtener_codigos_postales():
+    nombre_localidad = request.args.get("nombre")
+
+    try:
+        conn = obtener_conexion()
+        cursor = conn.cursor()
+        cursor.execute("""
+            SELECT cp.codigo
+            FROM CODIGO_POSTAL cp
+            JOIN LOCALIDAD l ON cp.id_localidad = l.id_localidad
+            WHERE l.nombre = : nombre_localidad
+        """, [nombre_localidad])
+        codigos = cursor.fetchall()
+        return jsonify([c[0] for c in codigos])
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+    finally:
+        if 'cursor' in locals(): cursor.close()
+        if 'conn' in locals(): conn.close()
+
+@direcciones_bp.route("/api/via", methods=["GET"])
+def obtener_via():
+    try:
+        conn = obtener_conexion()
+        cursor = conn.cursor()
+        cursor.execute("SELECT nombre FROM VIA ORDER BY nombre")
+        vias = cursor.fetchall()
+        return jsonify([via[0] for via in vias])
+    except Exception as e: 
+        return jsonify({"error": str(e)}), 500
+    finally:
+        if 'cursor' in locals(): cursor.close()
+        if 'conn' in locals(): conn.close()
