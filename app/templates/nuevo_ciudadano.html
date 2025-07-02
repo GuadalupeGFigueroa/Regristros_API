@@ -21,9 +21,11 @@
             <legend>Datos de contacto</legend>
             <label for="telefono">Teléfono de contacto</label><br>
             <input type="tel" id="telefono" name="telefono" value="{{ telefono | default('') }}" required><br><br>
+            <div class="error" id="error-telefono"></div>
 
             <label for="correoElectronico">Correo electrónico</label><br>
             <input type="email" id="correoElectronico" name="correoElectronico" value="{{ correoElectronico | default('') }}"><br><br>
+            <div class="error" id="error-correo"></div>
         </fieldset>
 
         <!-- Dirección con validación por municipio -->
@@ -44,13 +46,13 @@
             <select id="nombre_via" name="nombre_via"></select><br><br>
 
             <label for="numero">Número:</label><br>
-            <select id="numero" name="numero"></select><br><br>
+            <input type="number" name="numero" min="1" step="1"><br><br>
 
             <label for="piso">Piso:</label><br>
-            <select id="piso" name="piso"></select><br><br>
+            <input type="text" id="piso" name="piso" placeholder="Ej. 2º"><br><br>
 
             <label for="puerta">Puerta:</label><br>
-            <select id="puerta" name="puerta"></select><br><br>
+            <input type="text" id="piso" name="piso" placeholder="Ej. B"><br><br>
 
             <label for="codPostal">Código postal:</label><br>
             <select id="codPostal" name="codPostal"></select><br><br>

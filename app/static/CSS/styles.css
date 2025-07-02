@@ -48,3 +48,8 @@ body {
     padding: 0.5rem;
     border-left: 4px solid black;
 }
+.error {
+    color: red;
+    font-size: 0.9em;
+    margin-top: 4px;
+}

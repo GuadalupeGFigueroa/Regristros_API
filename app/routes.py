@@ -62,6 +62,15 @@ def nuevo():
         observaciones = request.form.get('observaciones')
 
         # Validación
+        import re 
+        if not re.match(r'^[^@\s]+@[^@\s]+\.[^@\s]+$', correo):
+            flash("Correo no válido.")
+            return render_template("nuevo_ciudadano.html")
+
+        if not re.match(r'^\d{9}$', telefono):
+            flash("Teléfono no válido. Deben ser 9 dígitos.")
+            return render_template("nuevo_ciudadano.html")
+        
         if not nombre or not apellido1 or not telefono:
             flash("Faltan campos obligatorios.")
             return render_template('nuevo_ciudadano.html',
@@ -73,8 +82,8 @@ def nuevo():
                 municipio=municipio,
                 observaciones=observaciones
                 )
-        
-        guardar_resultado = True #simulación de guardado
+    
+            guardar_resultado = True #simulación de guardado
 
         # Llamada al servicio SOAP/REST para verificar
         respuesta = buscar_ciudadano_soap(
@@ -105,8 +114,9 @@ def nuevo():
                 telefono=telefono, 
                 correo=correo
                 )
-        # 
     return render_template("nuevo_ciudadano.html")
+
+    
 
 @direcciones_bp.route('/api/vias')
 def obtener_vias():
