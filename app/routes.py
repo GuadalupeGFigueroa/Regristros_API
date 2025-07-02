@@ -29,7 +29,7 @@ def buscar():
     if request.method == 'POST':
         documentoIdentidad = request.form.get('documentoIdentidad')
         
-        token = generar_wssegpass(CLAVE_WSSEG)  # según tus credenciales
+        token = generar_wssegpass(CLAVE_WSSEG)  
         ciudadano = buscar_ciudadano_soap(
             documentoIdentidad=documentoIdentidad,
             entidad_codigo=ENTIDAD_CODIGO,  
@@ -63,6 +63,14 @@ def nuevo():
 
         # Validación
         import re 
+        if not re.match(r'/^[a-zA-ZÁÉÍÓÚÑáéíóúñ\- ]+$/', nombre):
+            flash("Nombre no válido.")
+            return render_template("nuevo_ciudadano.html")
+        
+        if not re.match(r'/^[a-zA-ZÁÉÍÓÚÑáéíóúñ\- ]+$/', apellido1):
+            flash("Apellido no válido.")
+            return render_template("nuevo_ciudadano.html")
+        
         if not re.match(r'^[^@\s]+@[^@\s]+\.[^@\s]+$', correo):
             flash("Correo no válido.")
             return render_template("nuevo_ciudadano.html")
