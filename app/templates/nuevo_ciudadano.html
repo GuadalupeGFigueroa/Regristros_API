@@ -8,9 +8,11 @@
             <legend>Datos personales</legend>
             <label for="nombre">Nombre:</label><br>
             <input type="text" id="nombre" name="nombre" value="{{ nombre | default('') }}" required><br><br>
+            <div class="error" id="error-nombre" name="nombre"></div>
             
             <label for="apellido1">Primer apellido</label><br>
             <input type="text" id="apellido1" name="apellido1" value="{{ apellido1 | default('') }}" required><br><br>
+            <div class="error" id="error-apellido1" name="apellido1"></div>
 
             <label for="apellido2">Segundo apellido</label><br>
             <input type="text" id="apellido2" name="apellido2" value="{{ apellido2 | default('') }}"><br><br>

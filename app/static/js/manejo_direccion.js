@@ -47,50 +47,48 @@ document.addEventListener("DOMContentLoaded", function () {
             .catch(err => console.error("Error al cargar los tipos de vía.", err));
     }
 
-    function validarFormulario(e) {        
-
-        errorNombre.textContent = "";
-        errorApellido1.textContent = "";
-        errorCorreo.textContent = "";
-        errorTelefono.textContent ="";   
-
-        nombreInput.addEventListener("blur", function () {
-            if (!nameRegex.test(nombreInput.value.trim())) {
-            errorNombre.textContent = "El formato no es válido.";
-            } else {
-                errorNombre.textContent = "";
+    function validarCampo(input, errorElem, regex, mensaje) {        
+        const valor = input.value.trim();
+        if (!regex.test(valor)) {
+            errorElem.textContent = mensaje;
+            return false;
+        } else {
+            errorElem.textContent = "";
+            return true;
             }
+        }
+        
+        nombreInput.addEventListener("blur", () => {
+            validarCampo(nombreInput, errorNombre, nameRegex, "Nombre no válido.");
         });
 
-        apellido1Input.addEventListener("blur", function () {
-            if (!nameRegex.test(apellido1Input.value.trim())) {
-            errorApellido1.textContent = "El formato no es válido.";
-            } else {
-                errorApellido1.textContent = "";
-            }
+        apellido1Input.addEventListener("blur", () => {
+            validarCampo(apellido1Input, errorApellido1, nameRegex, "Apellido no válido.");
         });
 
-        correoInput.addEventListener("blur", function () {
-            if (!emailRegex.test(correoInput.value.trim())) {
-            errorCorreo.textContent = "El formato de correo no es válido.";
-            } else {
-                errorCorreo.textContent = "";
-            }
+        telefonoInput.addEventListener("blur", () => {
+            validarCampo(telefonoInput, errorTelefono, phoneRegex, "Teléfono no válido.");
         });
 
-        telefonoInput.addEventListener("blur", function () {
-            if (!phoneRegex.test(telefonoInput.value.trim())) {
-                errorTelefono.textContent = "El teléfono debe de tener 9 dígitos.";
-            } else {
-                errorTelefono.textContent = "";
-            }
-        });        
+        correoInput.addEventListener("blur", () => {
+            validarCampo(correoInput, errorCorreo, emailRegex, "Introduce un correo válido.");
+        });
+
+    function validarFormulario(e) { 
+        const esValido = 
+            validarCampo(nombreInput, errorNombre, nameRegex, "Nombre no válido.") &
+            validarCampo(apellido1Input, errorApellido1, nameRegex, "Apellido no válido.") &
+            validarCampo(correoInput, errorCorreo, emailRegex, "Correo no válido.") &
+            validarCampo(telefonoInput, errorTelefono, phoneRegex, "Teléfono no válido.");
+
+            if (!esValido) e.preventDefault();
     }
+       
+    
     municipioInput.addEventListener("input", function () {
         actualizarDireccionSegunMunicipio(this.value.trim().toLowerCase());
     });
 
-    
     actualizarDireccionSegunMunicipio(municipioInput.value.trim().toLowerCase());
     document.querySelector("form").addEventListener("submit", validarFormulario);
     cargarTiposVia();
