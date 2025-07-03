@@ -63,11 +63,11 @@ def nuevo():
 
         # Validación
         import re 
-        if not re.match(r'/^[a-zA-ZÁÉÍÓÚÑáéíóúñ\- ]+$/', nombre):
+        if not re.match(r'^[a-zA-ZÁÉÍÓÚÑáéíóúñ\- ]+$', nombre):
             flash("Nombre no válido.")
             return render_template("nuevo_ciudadano.html")
         
-        if not re.match(r'/^[a-zA-ZÁÉÍÓÚÑáéíóúñ\- ]+$/', apellido1):
+        if not re.match(r'^[a-zA-ZÁÉÍÓÚÑáéíóúñ\- ]+$', apellido1):
             flash("Apellido no válido.")
             return render_template("nuevo_ciudadano.html")
         
