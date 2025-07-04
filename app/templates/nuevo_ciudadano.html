@@ -8,106 +8,20 @@
          <div id="progreso" arial-label="Progrreso del formulario">
             <p><strong>Paso <span id="etapa-actual">1</span> de 3</strong></p>
          </div>
-    
-        <!-- Datos personales -->
-         <section id="paso1">
-            <h2>Datos personales</h2>
 
-            <fieldset>
-            <label for="nombre">Nombre*:</label><br>
-            <input type="text" id="nombre" name="nombre" value="{{ nombre | default('') }}" required><br><br>
-            <div class="error" id="error-nombre" name="nombre"></div>
-            
-            <label for="apellido1">Primer apellido*</label><br>
-            <input type="text" id="apellido1" name="apellido1" value="{{ apellido1 | default('') }}" required><br><br>
-            <div class="error" id="error-apellido1" name="apellido1"></div>
+        {% include "_datosPersonales.html" %}
+        {% include "_direccionContacto.html" %}
+        {% include "_resumen.html" %}
 
-            <label for="apellido2">Segundo apellido</label><br>
-            <input type="text" id="apellido2" name="apellido2" value="{{ apellido2 | default('') }}"><br><br>
-            <div class="error" id="error-apellido2" name="apellido2"></div>
-
-            <label for="telefono">Teléfono de contacto*</label><br>
-            <input type="tel" id="telefono" name="telefono" value="{{ telefono | default('') }}" required><br><br>
-            <div class="error" id="error-telefono"></div>
-
-            <label for="correoElectronico">Correo electrónico</label><br>
-            <input type="email" id="correoElectronico" name="correoElectronico" value="{{ correoElectronico | default('') }}"><br><br>
-            <div class="error" id="error-correo"></div>
-            </fieldset>
-
-          <!-- Dirección con validación por municipio -->
-        <fieldset>
-            <label for="municipio">Municipio (a efectos de notificaciones)*:</label><br>
-            <input type="text" id="municipio" name="municipio" value="{{ municipio | default('') }}" placeholder="Ej. Llanera" required><br><br>
-        </fieldset>
-
-        
-        <p>(*) Campos obligatorios</p><br>
-
-            <br>
-            <button type="button" id="boton-siguiente1">Siguiente ➡️ </button>
-         </section>
-      
-        <section id="paso2">
-            <h2>Dirección</h2>
-            <h3>Incluir la direeción deseada a efectos de notificaciones</h3>
-        <!-- Contenedor para selectores dinámicos de Llanera-->
-
-        <div id="direccion_estructurada" style="display: none;">
-            <label for="tipo_via">Tipo de vía:</label><br>
-            <select id="tipo_via" name="tipo_via"></select><br><br>
-
-            <label for="nombre_via">Nombre de la vía:</label><br>
-            <select id="nombre_via" name="nombre_via"></select><br><br>
-
-            <label for="numero">Número:</label><br>
-            <input type="number" name="numero" min="1" step="1"><br><br>
-
-            <label for="piso">Piso:</label><br>
-            <input type="text" id="piso" name="piso" placeholder="Ej. 2º"><br><br>
-
-            <label for="puerta">Puerta:</label><br>
-            <input type="text" id="puerta" name="puerta" placeholder="Ej. B"><br><br>
-
-            <label for="codPostal">Código postal:</label><br>
-            <select id="codPostal" name="codPostal"></select><br><br>
-        </div>
-        
-            <!-- Contenedor para direcciones fuera de Llanera-->
-        <div id="direccion_manual" style="display: none;">
-            <label for="tipo_via_manual">Tipo de vía:</label><br>
-            <input type="text" id="tipo_via_manual" name="tipo_via"><br><br>
-
-            <label for="nombre_via_manual">Nombre de la vía:</label><br>
-            <input type="text" id="nombre_via_manual" name="nombre_via"><br><br>
-
-            <label for="numero_manual">Número:</label><br>
-            <input type="number" id="numero_manual" name="numero"><br><br>
-
-            <label for="piso_manual">Piso:</label><br>
-            <input type="text" id="piso_manual" name="piso"><br><br>
-
-            <label for="puerta_manual">Puerta:</label><br>
-            <input type="text" id="puerta_manual" name="puerta"><br><br>
-
-            <label for="codPostal_manual">Código postal:</label><br>
-            <input type="text" id="codPostal_manual" name="codPostal"><br><br>
-            
-        </div>
-         </fieldset>
-
-         <!-- Campo opcional -->
-          <fieldset>
-            <legend>Información adicional</legend>
-            <label for="observaciones">Observaciones</label><br>
-            <input type="text" id="observaciones" name="observaciones" autocomplete="off"><br><br>
-          </fieldset>
-
-        </section>
-
-        
-          <button type="submit" onclick="return confirm('¿Estás seguro de que deseas guardar estos datos?')">Guardar</button>
+        <button type="submit" onclick="return confirm('¿Estás seguro de que deseas guardar estos datos?')">Guardar</button>
     </form>
     
    <script src="{{ url_for('static', filename='js/manejo_direccion.js')}}"></script>
 {% endblock %}
+    
+
+
+        
+
+        
+        

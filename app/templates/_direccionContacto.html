@@ -1,0 +1,61 @@
+<section id="paso2" style="display: none;">
+    <h2>Dirección</h2>
+    <h3>Introduce la direeción deseada a efectos de notificaciones</h3>
+
+<!-- Dirección estructurada: solo para Llanera -->
+
+<div id="direccion_estructurada" style="display: none;">
+    <label for="tipo_via">Tipo de vía:</label><br>
+    <select id="tipo_via" name="tipo_via"></select><br><br>
+
+    <label for="nombre_via">Nombre de la vía:</label><br>
+    <select id="nombre_via" name="nombre_via"></select><br><br>
+
+    <label for="numero">Número:</label><br>
+    <input type="number" name="numero" min="1" step="1"><br><br>
+
+    <label for="piso">Piso:</label><br>
+    <input type="text" id="piso" name="piso" placeholder="Ej. 2º"><br><br>
+
+    <label for="puerta">Puerta:</label><br>
+    <input type="text" id="puerta" name="puerta" placeholder="Ej. B"><br><br>
+
+    <label for="codPostal">Código postal:</label><br>
+    <select id="codPostal" name="codPostal"></select><br><br>
+</div>
+
+    <!-- Dirección manual: resto de municipios -->
+<div id="direccion_manual" style="display: none;">
+    <label for="tipo_via_manual">Tipo de vía:</label><br>
+    <input type="text" id="tipo_via_manual" name="tipo_via"><br><br>
+
+    <label for="nombre_via_manual">Nombre de la vía:</label><br>
+    <input type="text" id="nombre_via_manual" name="nombre_via"><br><br>
+
+    <label for="numero_manual">Número:</label><br>
+    <input type="number" id="numero_manual" name="numero"><br><br>
+
+    <label for="piso_manual">Piso:</label><br>
+    <input type="text" id="piso_manual" name="piso"><br><br>
+
+    <label for="puerta_manual">Puerta:</label><br>
+    <input type="text" id="puerta_manual" name="puerta"><br><br>
+
+    <label for="codPostal_manual">Código postal:</label><br>
+    <input type="text" id="codPostal_manual" name="codPostal"><br><br>
+    
+</div>
+    </fieldset>
+
+    <!-- Información adicional -->
+    <fieldset>
+    <legend>Información adicional</legend>
+    <label for="observaciones">Observaciones</label><br>
+    <input type="text" id="observaciones" name="observaciones" autocomplete="off"><br><br>
+    </fieldset>
+    
+<!-- Botones de navegación -->
+<button type="button" id="boton-atras1">⬅️ Atrás</button>
+<button type="button" id="boton-siguiente2">Siguiente ➡️</button>
+
+</section>

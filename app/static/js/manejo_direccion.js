@@ -126,4 +126,42 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     cargarTiposVia();
+
+    document.getElementById("boton-siguiente2").addEventListener("Click", () => {
+        document.getElementById("resumen-nombre").textContent = nombreInput.value.trim();
+        document.getElementById("resumen-apellido1").textContent = apellido1Input.value.trim();
+        document.getElementById("resumen-apellido2").textContent = apellido2Input.value.trim();
+        document.getElementById("resumen-telefono").textContent = telefonoInput.value.trim();
+        document.getElementById("resumen-correo").textContent = correoInput.value.trim();
+        document.getElementById("resumen-municipio").textContent = municipioInput.value.trim();
+        document.getElementById("resumen-observaciones").textContent = document.getElementById("observaciones").value.trim();
+
+        //Dirección según municipio
+        let direccion = "";
+
+        if (municipioInput.value.trim().toLowerCase() === "llanera") {
+            const tipo = document.getElementById("tipo_via").value;
+            const nombreVia = document.getElementById("nombre_via").value;
+            const numero = document.getElementById("numero").value;
+            const piso = document.getElementById("piso").value;
+            const puerta = document.getElementById("puerta").value;
+            const cp = document.getElementById("codPostal").value;
+
+            direccion = '${tipo} ${nombreVia}, nº ${numero}, ${piso} ${puerta} CP ${cp}';
+        } else {
+            const tipo = document.getElementById("tipo_via_manual").value;
+            const nombreVia = document.getElementById("nombre_via_manual").value;
+            const numero = document.getElementById("numero_manual").value;
+            const piso = document.getElementById("piso_manual").value;
+            const puerta = document.getElementById("puerta_manual").value;
+            const cp = document.getElementById("codPostal_manual").value;
+
+            direccion = '${tipo} ${nombreVia}, nº ${numero}, ${piso} ${puerta} CP ${cp}';
+        }
+        
+        document.getElementById("resumen-direccion").textContent = direccion.trim();
+        mostrarPaso(2);
+        
+    })
+
 });
