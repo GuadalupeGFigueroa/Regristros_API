@@ -41,30 +41,30 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
         
-        //Validación campos paso 1
-        nombreInput.addEventListener("blur", () => {
-            validarCampo(nombreInput, errorNombre, nameRegex, "Nombre no válido.");
-        });
+    //Validación campos paso 1
+    nombreInput.addEventListener("blur", () => {
+        validarCampo(nombreInput, errorNombre, nameRegex, "Nombre no válido.");
+    });
 
-        apellido1Input.addEventListener("blur", () => {
-            validarCampo(apellido1Input, errorApellido1, nameRegex, "Apellido no válido.");
-        });
+    apellido1Input.addEventListener("blur", () => {
+        validarCampo(apellido1Input, errorApellido1, nameRegex, "Apellido no válido.");
+    });
 
-        apellido2Input.addEventListener("blur", () => {
-            validarCampo(apellido2Input, errorApellido2, nameRegex, "Apellido no válido.");
-        });
+    apellido2Input.addEventListener("blur", () => {
+        validarCampo(apellido2Input, errorApellido2, nameRegex, "Apellido no válido.");
+    });
 
-        telefonoInput.addEventListener("blur", () => {
-            validarCampo(telefonoInput, errorTelefono, phoneRegex, "Teléfono no válido.");
-        });
+    telefonoInput.addEventListener("blur", () => {
+        validarCampo(telefonoInput, errorTelefono, phoneRegex, "Teléfono no válido.");
+    });
 
-        correoInput.addEventListener("blur", () => {
-            validarCampo(correoInput, errorCorreo, emailRegex, "Introduce un correo válido.");
-        });
+    correoInput.addEventListener("blur", () => {
+        validarCampo(correoInput, errorCorreo, emailRegex, "Introduce un correo válido.");
+    });
 
-        codPostal_manualInput.addEventListener("blur", () => {
-            validarCampo(codPostal_manualInput, errorCodPostal_manual, emailRegex, "Introduce un código postal válido.");
-        });
+    codPostal_manualInput.addEventListener("blur", () => {
+        validarCampo(codPostal_manualInput, errorCodPostal_manual, codPostal_manualRegex, "Introduce un código postal válido.");
+    });
     
     //Validación para pasar al paso 2
     function validarFormulario() { 
@@ -75,15 +75,13 @@ document.addEventListener("DOMContentLoaded", function () {
             validarCampo(codPostal_manualInput, errorCodPostal_manual, codPostal_manualRegex, "Codigo postal no válido.");
 
         const valido =
-            validarCampo(nombreInput, errorNombre, nameRegex, "Nombre no válido.") &
-            validarCampo(apellido1Input, errorApellido1, nameRegex, "Apellido no válido.") &
-            validarCampo(apellido2Input, errorApellido2, nameRegex, "Apellido no válido.") &
-            correoValido &
-            validarCampo(telefonoInput, errorTelefono, phoneRegex, "Teléfono no válido.") &
-            validarCampo(codPostal_manualInput, errorCodPostal_manual, codPostal_manualRegex, "Código postal no válido.") &
-            codPostal_manualValido;
-            
-            return !!valido;
+            validarCampo(nombreInput, errorNombre, nameRegex, "Nombre no válido.") &&
+            validarCampo(apellido1Input, errorApellido1, nameRegex, "Apellido no válido.") &&
+            validarCampo(apellido2Input, errorApellido2, nameRegex, "Apellido no válido.") &&
+            correoValido &&
+            validarCampo(telefonoInput, errorTelefono, phoneRegex, "Teléfono no válido.") &&
+            codPostal_manualValido;            
+            return valido;
     }
      
     document.getElementById("boton-siguiente1").addEventListener("click",function() {
@@ -164,7 +162,7 @@ document.addEventListener("DOMContentLoaded", function () {
             const puerta = document.getElementById("puerta").value;
             const codPostal_manual = document.getElementById("codPostal").value;
 
-            direccion = `${tipo} ${nombreVia}, nº ${numero}, ${piso} ${puerta} CP ${cp}`;
+            direccion = `${tipo} ${nombreVia}, nº ${numero}, ${piso} ${puerta} CP ${codPostal_manual}`;
         } else {
             const tipo = document.getElementById("tipo_via_manual").value;
             const nombreVia = document.getElementById("nombre_via_manual").value;
@@ -173,7 +171,7 @@ document.addEventListener("DOMContentLoaded", function () {
             const puerta = document.getElementById("puerta_manual").value;
             const codPostal_manual = document.getElementById("codPostal_manual").value;
 
-            direccion = `${tipo} ${nombreVia}, nº ${numero}, ${piso} ${puerta} CP ${cp}`;
+            direccion = `${tipo} ${nombreVia}, nº ${numero}, ${piso} ${puerta} CP ${codPostal_manual}`;
         }
         
         document.getElementById("resumen-direccion").textContent = direccion.trim();
