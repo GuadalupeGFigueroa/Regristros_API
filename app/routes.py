@@ -90,6 +90,9 @@ def nuevo():
                 municipio=municipio,
                 observaciones=observaciones
                 )
+        if not re.match(r'^\d{5}$', cod_postal):
+            flash("Código postal no válido. Deben ser  dígitos.")
+            return render_template("nuevo_ciudadano.html")
     
             guardar_resultado = True #simulación de guardado
 

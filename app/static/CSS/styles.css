@@ -1,7 +1,18 @@
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Open Sans', 'Roboto', sans-serif;
     margin: 0;
     padding: 0;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+.container {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 30px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
 }
 
 .navbar {
@@ -14,7 +25,8 @@ body {
     margin: 0;
     padding: 0;
     display: flex;
-}
+    flex-wrap: wrap;
+}  
 
 .navbar li {
     margin-right: 20px;
@@ -46,10 +58,14 @@ body {
     background-color: #f8d7da;
     color: #721c24;
     padding: 0.5rem;
-    border-left: 4px solid black;
+    border-left: 40px solid black;
 }
 .error {
     color: red;
     font-size: 0.9em;
     margin-top: 2px;
+}
+h1, h2, p {
+    margin-left: 40px;
+    margin-right: 40px;
 }

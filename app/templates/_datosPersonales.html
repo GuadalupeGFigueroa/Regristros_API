@@ -3,24 +3,24 @@
 
 <fieldset>
 <label for="nombre">Nombre*:</label><br>
-<input type="text" id="nombre" name="nombre" value="{{ nombre | default('') }}" required><br><br>
-<div class="error" id="error-nombre" name="nombre"></div>
+<input type="text" id="nombre" name="nombre" value="{{ nombre | default('') }}" required><br>
+<div class="error" id="error-nombre" name="nombre"></div><br><br>
 
 <label for="apellido1">Primer apellido*</label><br>
-<input type="text" id="apellido1" name="apellido1" value="{{ apellido1 | default('') }}" required><br><br>
-<div class="error" id="error-apellido1" name="apellido1"></div>
+<input type="text" id="apellido1" name="apellido1" value="{{ apellido1 | default('') }}" required><br>
+<div class="error" id="error-apellido1" name="apellido1"></div><br><br>
 
 <label for="apellido2">Segundo apellido</label><br>
-<input type="text" id="apellido2" name="apellido2" value="{{ apellido2 | default('') }}"><br><br>
-<div class="error" id="error-apellido2" name="apellido2"></div>
+<input type="text" id="apellido2" name="apellido2" value="{{ apellido2 | default('') }}"><br>
+<div class="error" id="error-apellido2" name="apellido2"></div><br><br>
 
 <label for="telefono">Teléfono de contacto*</label><br>
-<input type="tel" id="telefono" name="telefono" value="{{ telefono | default('') }}" required><br><br>
-<div class="error" id="error-telefono"></div>
+<input type="tel" id="telefono" name="telefono" value="{{ telefono | default('') }}" required><br>
+<div class="error" id="error-telefono"></div><br><br>
 
 <label for="correoElectronico">Correo electrónico</label><br>
-<input type="email" id="correoElectronico" name="correoElectronico" value="{{ correoElectronico | default('') }}"><br><br>
-<div class="error" id="error-correo"></div>
+<input type="email" id="correoElectronico" name="correoElectronico" value="{{ correoElectronico | default('') }}"><br>
+<div class="error" id="error-correo"></div><br><br>
 </fieldset>
 
 <!-- Dirección con validación por municipio -->
