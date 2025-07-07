@@ -16,6 +16,12 @@ document.addEventListener("DOMContentLoaded", function () {
     const correoInput = document.getElementById("correoElectronico");
     const telefonoInput = document.getElementById("telefono");
     const codPostal_manualInput = document.getElementById("codPostal_manual");
+    
+    // Dinámica de bloques por municipio
+    const municipioInput = document.getElementById("municipio");
+    const bloqueLlanera = document.getElementById("direccion_estructurada");
+    const bloqueOtros = document.getElementById("direccion_manual");
+    
 
     const errorNombre = document.getElementById("error-nombre");
     const errorApellido1 = document.getElementById("error-apellido1");
@@ -83,10 +89,12 @@ document.addEventListener("DOMContentLoaded", function () {
             codPostal_manualValido;            
             return valido;
     }
-     
+    
+    
     document.getElementById("boton-siguiente1").addEventListener("click",function() {
         if (validarFormulario()) {
             mostrarPaso(1);
+            actualizarDireccionSegunMunicipio(municipioInput.value.trim().toLowerCase());
         }
     });
 
@@ -94,17 +102,16 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("boton-siguiente2").addEventListener("click", () => mostrarPaso(2));
     document.getElementById("boton-atras2").addEventListener("click", () => mostrarPaso(1));
 
+    /* Ya no es necesario porque se ha incorporado a html. 
+    Se deja comentado por si más adelante en el desarrollo se va más conveniente recuperar la función en js. 
+    
     document.getElementById("boton-enviar").addEventListener("click", function(){
         if (confirm("¿Desea enviar el registro?")) {
             document.querySelector("form").submit();
             }
         });
-        mostrarPaso(0);
+        mostrarPaso(0); */    
     
-    // Dinámica de bloques por municipio
-    const municipioInput = document.getElementById("municipio");
-    const bloqueLlanera = document.getElementById("direccion_estructurada");
-    const bloqueOtros = document.getElementById("direccion_manual");
 
     function actualizarDireccionSegunMunicipio(valor){
 
@@ -129,7 +136,7 @@ document.addEventListener("DOMContentLoaded", function () {
         fetch("/api/tipos-via")
             .then(res => res.json())
             .then(tipos => {
-                const select = document.getElementById("tipoVia");
+                const select = document.getElementById("tipo_via");
                 tipos.forEach(tipo => {
                     const option = document.createElement("option");
                     option.value = tipo;

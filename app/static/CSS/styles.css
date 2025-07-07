@@ -1,3 +1,13 @@
+/*Ajustes de márgenes y secciones proncipales*/
+section {
+    padding: 16px 24px;
+    margin-bottom: 16px;
+    background-color: #ffffff;
+    border-radius: 6px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+}
+
+/* Base */
 body {
     font-family: 'Open Sans', 'Roboto', sans-serif;
     margin: 0;
@@ -5,16 +15,18 @@ body {
     background-color: #f4f4f4;
     color: #333;
 }
-
+ 
+/* Contenedor general */
 .container {
     max-width: 800px;
-    margin: 40px auto;
+    margin: 20px;
     padding: 30px;
     background-color: white;
-    border-radius: 8px;
+    border-radius: 0px;
     box-shadow: 0 2px 6px rgba(0,0,0,0.1);
 }
 
+/* Navegacion y cabecera*/
 .navbar {
     background-color: #0c7cb4;
     padding: 10px 20px;
@@ -42,6 +54,45 @@ body {
     text-decoration: underline;
 }
 
+/* Encabezados y texto común */
+h1 {
+    margin-top: 8px;
+    margin-bottom: 8px;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+h2 {
+    margin-top: 6px;
+    margin-bottom: 6px;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+p {
+    margin-top: 2px;
+    margin-bottom: 2px;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+label {
+    font-weight: 600;
+    display: block;
+    margin-top: 6px;
+    margin-bottom: 2px;
+}
+input, 
+select {
+    width: 100%;
+    margin-bottom: 3px;
+    padding: 3px 4px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+/* Formularios y casos de error */
 .flashes {
     list-style: none;
     padding: 0;
@@ -64,8 +115,39 @@ body {
     color: red;
     font-size: 0.9em;
     margin-top: 2px;
+    margin-bottom: 4px;
 }
-h1, h2, p {
-    margin-left: 40px;
-    margin-right: 40px;
+
+/* Pasos del formulario */
+
+/* Reesumen final*/
+#resumen-datos li {
+    padding: 8px 0;
+    border-bottom: 1px solid #ddd;
 }
+
+#resumen-datos strong {
+    display: inline-block;
+    width: 180px;
+    color: #0c7cb4;
+}
+
+/* Botones */
+button {
+    background-color: #0c7cb4;
+    color: white;
+    font-weight: bold;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: 10px;
+    margin-top: 5px;
+}
+button:hover{
+    background-color: #095e8b;
+}
+
+/* Elementos auxiliares */
+
+/* Media Querris para diseños responsive. */
