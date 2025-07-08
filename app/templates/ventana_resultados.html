@@ -23,7 +23,7 @@
                 {{ domicilio.direccion or domicilio.direccionSinSufijos }}
                 {% if domicilio.esPrincipal or domicilio.lEsPrincipal %}
                     <strong>(domicilio principal)</strong>
-                    {% endif}
+                    {% endif %}
             </li>
             {% endfor %}
         </ul>
@@ -32,12 +32,12 @@
         {% endif %}
 
         <br>
-        <a href="{{ url_for('editar_ciudadano', id=ciudadano.id) }}" class="boton-editar">✏️ Editar ciudadano</a>
+        <a href="{{ url_for('direcciones.editar', id=ciudadano.id) }}" class="boton-editar">✏️ Editar ciudadano</a>
     {% else %}
         <p>No se encontró ningún ciudadano con los datos proporcionados.</p>
     {% endif %}
 
     <br><br>
-    <a href="{{ url_for('buscar') }}">← Volver a buscar</a>
+    <a href="{{ url_for('direcciones.buscar') }}">← Volver a buscar</a>
 {% endblock %}
 

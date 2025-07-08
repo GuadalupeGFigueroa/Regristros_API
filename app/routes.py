@@ -215,3 +215,7 @@ def obtener_via():
     finally:
         if 'cursor' in locals(): cursor.close()
         if 'conn' in locals(): conn.close()
+
+@direcciones_bp.route('/editar_ciudadano/<int:id>', methods=['GET', 'POST'])
+def editar(id):
+    return render_template("editar_ciudadano.html", id=id)

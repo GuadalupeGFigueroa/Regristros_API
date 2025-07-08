@@ -10,6 +10,7 @@ def buscar_ciudadano_soap(documentoIdentidad, entidad_codigo, usuario, ws_segpas
     if MODO_SIMULACION:
         simulados = {
             "12345678A": {
+                "id": 1,
                 "nombre": "Laura",
                 "apellido1": "Martínez",
                 "apellido2": "Pérez",
@@ -20,6 +21,7 @@ def buscar_ciudadano_soap(documentoIdentidad, entidad_codigo, usuario, ws_segpas
                 "direccion": "Calle Ficticia, 10"
             },
             "87654321Z": {
+                "id": 2,
                 "nombre": "Javier",
                 "apellido1": "Gómez",
                 "apellido2": "Ruiz",
@@ -30,6 +32,7 @@ def buscar_ciudadano_soap(documentoIdentidad, entidad_codigo, usuario, ws_segpas
                 "direccion": "Avenida Prueba, 22"
             },
             "11223344X": {
+                "id": 3,
                 "nombre": "Ana",
                 "apellido1": "Santos",
                 "apellido2": "Moreno",
