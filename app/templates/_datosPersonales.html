@@ -2,36 +2,35 @@
 <h2>Datos personales</h2>
 
 <fieldset>
-<label for="nombre">Nombre*:</label><br>
+<label for="nombre">Nombre*:</label>
 <input type="text" id="nombre" name="nombre" value="{{ nombre | default('') }}" required><br>
-<div class="error" id="error-nombre" name="nombre"></div><br><br>
+<div class="error" id="error-nombre" name="nombre"></div><br>
 
-<label for="apellido1">Primer apellido*</label><br>
+<label for="apellido1">Primer apellido*</label>
 <input type="text" id="apellido1" name="apellido1" value="{{ apellido1 | default('') }}" required><br>
-<div class="error" id="error-apellido1" name="apellido1"></div><br><br>
+<div class="error" id="error-apellido1" name="apellido1"></div><br>
 
-<label for="apellido2">Segundo apellido</label><br>
+<label for="apellido2">Segundo apellido</label>
 <input type="text" id="apellido2" name="apellido2" value="{{ apellido2 | default('') }}"><br>
-<div class="error" id="error-apellido2" name="apellido2"></div><br><br>
+<div class="error" id="error-apellido2" name="apellido2"></div><br>
 
-<label for="telefono">Teléfono de contacto*</label><br>
+<label for="telefono">Teléfono de contacto*</label>
 <input type="tel" id="telefono" name="telefono" value="{{ telefono | default('') }}" required><br>
-<div class="error" id="error-telefono"></div><br><br>
+<div class="error" id="error-telefono"></div><br>
 
-<label for="correoElectronico">Correo electrónico</label><br>
+<label for="correoElectronico">Correo electrónico</label>
 <input type="email" id="correoElectronico" name="correoElectronico" value="{{ correoElectronico | default('') }}"><br>
-<div class="error" id="error-correo"></div><br><br>
+<div class="error" id="error-correo"></div><br>
 </fieldset>
 
 <!-- Dirección con validación por municipio -->
 <fieldset>
-<label for="municipio">Municipio (a efectos de notificaciones)*:</label><br>
-<input type="text" id="municipio" name="municipio" value="{{ municipio | default('') }}" placeholder="Ej. Llanera" required><br><br>
+<label for="municipio">Municipio (a efectos de notificaciones)*:</label>
+<input type="text" id="municipio" name="municipio" value="{{ municipio | default('') }}" placeholder="Ej. Llanera" required><br>
 </fieldset>
 
 
 <p>(*) Campos obligatorios</p><br>
 
-<br>
 <button type="button" id="boton-siguiente1">Siguiente ➡️ </button>
 </section>
