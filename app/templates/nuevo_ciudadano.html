@@ -1,11 +1,22 @@
 {% extends 'base.html' %}
 {% block title %}Nuevo registro{% endblock%}
 {%block content%}
+
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+        <ul class="flash">
+        {% for message in messages %}
+            <li>{{ message }}</li>
+        {% endfor %}
+        </ul>
+    {% endif %}
+    {% endwith %}
+
     <h1>Realizar nuevo registro</h1>
     <form action="{{ url_for('direcciones.nuevo')}}" method="post" autocomplete="off">
     
         <!-- Indicador de progreso-->
-         <div id="progreso" arial-label="Progrreso del formulario">
+         <div id="progreso" arial-label="Progreso del formulario">
             <p><strong>Paso <span id="etapa-actual">1</span> de 3</strong></p>
          </div>
 
@@ -18,6 +29,8 @@
     
    <script src="{{ url_for('static', filename='js/manejo_direccion.js')}}"></script>
 {% endblock %}
+
+
     
 
 

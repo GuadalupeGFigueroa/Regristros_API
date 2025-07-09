@@ -71,6 +71,10 @@ def nuevo():
             flash("Apellido no válido.")
             return render_template("nuevo_ciudadano.html")
         
+        if not apellido2 or not re.match(r'^[a-zA-ZÁÉÍÓÚÑáéíóúñ\- ]+$', apellido2):
+            flash("Apellido no válido.")
+            return render_template("nuevo_ciudadano.html")
+        
         if not re.match(r'^[^@\s]+@[^@\s]+\.[^@\s]+$', correo):
             flash("Correo no válido.")
             return render_template("nuevo_ciudadano.html")
@@ -90,8 +94,8 @@ def nuevo():
                 municipio=municipio,
                 observaciones=observaciones
                 )
-        if not re.match(r'^\d{5}$', cod_postal):
-            flash("Código postal no válido. Deben ser  dígitos.")
+        if not cod_postal or not re.match(r'^\d{5}$', cod_postal):
+            flash("Código postal no válido. Deben ser 5 dígitos.")
             return render_template("nuevo_ciudadano.html")
     
             guardar_resultado = True #simulación de guardado
