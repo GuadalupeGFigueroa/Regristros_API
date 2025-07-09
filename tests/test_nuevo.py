@@ -27,15 +27,17 @@ DATOS_CIUDADANO_BASE = {
 
         "observaciones": "Sin observaciones"
 }
-@pytest.mark.validation_nombre
+
 
 # Tests para datos correctos
+@pytest.mark.validation_formato_valido
 def test_nuevo_ciudadano_valido(client):
     datos=DATOS_CIUDADANO_BASE.copy()
     response = client.post('/nuevo', data=datos, follow_redirects=True)
     assert response.status_code == 200
     assert b"Informe" in response.data
-    
+
+@pytest.mark.validation_formato_valido  
 def test_nuevo_ciudadano_validoEspacios(client):
     datos=DATOS_CIUDADANO_BASE.copy()
     datos["nombre"] = "José Luís"
@@ -43,6 +45,7 @@ def test_nuevo_ciudadano_validoEspacios(client):
     assert response.status_code == 200
     assert b"Informe" in response.data
     
+@pytest.mark.validation_formato_valido
 def test_nuevo_ciudadano_validoApellido1(client):
     datos = DATOS_CIUDADANO_BASE.copy()
     datos["apellido1"] = "Del Río"
@@ -50,6 +53,7 @@ def test_nuevo_ciudadano_validoApellido1(client):
     assert response.status_code == 200
     assert b"Informe" in response.data
 
+@pytest.mark.validation_formato_valido
 def test_nuevo_ciudadano_validoApellido2(client):
     datos = DATOS_CIUDADANO_BASE.copy()
     datos["apellido2"] = "Del Río"
@@ -57,6 +61,7 @@ def test_nuevo_ciudadano_validoApellido2(client):
     assert response.status_code == 200
     assert b"Informe" in response.data
 
+@pytest.mark.validation_formato_valido
 def test_nuevo_ciudadano_validoGuiones1(client):
     datos = DATOS_CIUDADANO_BASE.copy()
     datos["apellido1"] = "Pérez-Gómez"
@@ -64,6 +69,7 @@ def test_nuevo_ciudadano_validoGuiones1(client):
     assert response.status_code == 200
     assert b"Informe" in response.data
 
+@pytest.mark.validation_apellido
 def test_nuevo_ciudadano_validoGuiones2(client):
     datos = DATOS_CIUDADANO_BASE.copy()
     datos["apellido2"] = "Pérez-Gómez"
@@ -72,6 +78,7 @@ def test_nuevo_ciudadano_validoGuiones2(client):
     assert b"Informe" in response.data
 
 #Tests para datos incorrectos
+@pytest.mark.validation_nombre
 def test_nuevo_ciudadano_nombreIncorrectoNumero(client):
     datos = DATOS_CIUDADANO_BASE.copy()
     datos["nombre"] = "Luí3"
@@ -79,6 +86,7 @@ def test_nuevo_ciudadano_nombreIncorrectoNumero(client):
     assert response.status_code == 200
     assert 'class="flash"' in response.get_data(as_text=True)
 
+@pytest.mark.validation_nombre
 def test_nuevo_ciudadano_nombreIncorrectoSigno(client):
     datos = DATOS_CIUDADANO_BASE.copy()
     datos["nombre"] = "Luí+"
@@ -86,6 +94,7 @@ def test_nuevo_ciudadano_nombreIncorrectoSigno(client):
     assert response.status_code == 200
     assert 'class="flash"' in response.get_data(as_text=True)
 
+@pytest.mark.validation_apellido
 def test_nuevo_ciudadano_apellido1IncorrectoNumero(client):
     datos = DATOS_CIUDADANO_BASE.copy()
     datos["apellido1"] = "Ramíre3"
@@ -93,6 +102,7 @@ def test_nuevo_ciudadano_apellido1IncorrectoNumero(client):
     assert response.status_code == 200
     assert 'class="flash"' in response.get_data(as_text=True)
 
+@pytest.mark.validation_apellido
 def test_nuevo_ciudadano_apellido1IncorrectoSigno(client):
     datos = DATOS_CIUDADANO_BASE.copy()
     datos["apellido1"] = "Ramíre+"
@@ -100,6 +110,7 @@ def test_nuevo_ciudadano_apellido1IncorrectoSigno(client):
     assert response.status_code == 200
     assert 'class="flash"' in response.get_data(as_text=True)
 
+@pytest.mark.validation_apellido
 def test_nuevo_ciudadano_apellido2IncorrectoNumero(client):
     datos = DATOS_CIUDADANO_BASE.copy()
     datos["apellido2"] = "Garci3"
@@ -107,6 +118,7 @@ def test_nuevo_ciudadano_apellido2IncorrectoNumero(client):
     assert response.status_code == 200
     assert 'class="flash"' in response.get_data(as_text=True)
 
+@pytest.mark.validation_apellido
 def test_nuevo_ciudadano_apellido2IncorrectoSigno(client):
     datos = DATOS_CIUDADANO_BASE.copy()
     datos["apellido2"] = "Cano+"
@@ -114,6 +126,7 @@ def test_nuevo_ciudadano_apellido2IncorrectoSigno(client):
     assert response.status_code == 200
     assert 'class="flash"' in response.get_data(as_text=True)
 
+@pytest.mark.validation_telefono
 def test_nuevo_ciudadano_teléfonoIncorrectoCorto(client):
     datos = DATOS_CIUDADANO_BASE.copy()
     datos["telefono"] = "60012345"
@@ -121,6 +134,7 @@ def test_nuevo_ciudadano_teléfonoIncorrectoCorto(client):
     assert response.status_code == 200
     assert 'class="flash"' in response.get_data(as_text=True)
 
+@pytest.mark.validation_telefono
 def test_nuevo_ciudadano_teléfonoIncorrectoLargo(client):
     datos = DATOS_CIUDADANO_BASE.copy()
     datos["telefono"] = "6001234567"
@@ -128,6 +142,7 @@ def test_nuevo_ciudadano_teléfonoIncorrectoLargo(client):
     assert response.status_code == 200
     assert 'class="flash"' in response.get_data(as_text=True)
 
+@pytest.mark.validation_telefono
 def test_nuevo_ciudadano_teléfonoIncorrectoLetra(client):
     datos = DATOS_CIUDADANO_BASE.copy()
     datos["telefono"] = "60012345O"
@@ -135,6 +150,7 @@ def test_nuevo_ciudadano_teléfonoIncorrectoLetra(client):
     assert response.status_code == 200
     assert 'class="flash"' in response.get_data(as_text=True)
 
+@pytest.mark.validation_correo
 def test_nuevo_ciudadano_emailIncorrecto1(client):
     datos = DATOS_CIUDADANO_BASE.copy()
     datos["correoElectronico"] = "luisexample.com"
@@ -142,7 +158,8 @@ def test_nuevo_ciudadano_emailIncorrecto1(client):
     assert response.status_code == 200
     assert 'class="flash"' in response.get_data(as_text=True)
 
-def test_nuevo_ciudadano_emailIncorrecto1(client):
+@pytest.mark.validation_correo
+def test_nuevo_ciudadano_emailIncorrecto2(client):
     datos = DATOS_CIUDADANO_BASE.copy()
     datos["correoElectronico"] = "luis@examplecom"
     response = client.post('/nuevo', data=datos, follow_redirects=False)
