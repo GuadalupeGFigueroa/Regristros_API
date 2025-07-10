@@ -19,7 +19,7 @@ Cada uno de estos documentos está diseñado para facilitar el uso, la colaborac
 
 ## ✨ Créditos
 
-Desarrollado por Guadalupe G. Figueroa durante sus prácticas profesionales.  
- 
+Desarrollado por Guadalupe G. Figueroa durante.  
+El proyecto forma parte del porfolio personal, orientado a la mejora continua.  
 
 ¡Gracias por clonar, contribuir o aprender con este repositorio! 🙌
