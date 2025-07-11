@@ -3,7 +3,14 @@
 {% block content %}
     <h2>Buscar ciudadano/a</h2>
     <form method="POST" action="{{ url_for('direcciones.buscar') }}">
-        <label for="documentoIdentidad">DNI / NIE / Pasaporte: </label><br>
+        <label for="tipo_documento">Tipo de documento: </label><br>
+        <select name="tipo_documento" id="tipo_documento" required>
+            <option value="dni">DNI</option>
+            <option value="nie">NIE</option>
+            <option value="pasaporte">Pasaporte</option>
+        </select>
+
+        <label for="documentoIdentidad">Número del documento:</label>
         <input type="text" id="documentoIdentidad" name="documentoIdentidad" required><br><br>
 
         <button type="submit">Buscar</button>
