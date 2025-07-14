@@ -9,5 +9,5 @@ if not os.path.isfile(".env"):
 app = create_app()
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, use_reloader=False)
     probar_conexion_sedipualba()
