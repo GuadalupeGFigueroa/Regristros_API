@@ -65,7 +65,7 @@ def buscar():
         if ciudadano:
             return render_template('ventana_resultados.html', ciudadano=ciudadano)
         else:
-            flash("Ciudadano/a no encontrado")
+            flash("⚠️ No se ha encontrado ningún resultado para el documento {tipo.upper()}'{documentoIdentidad}'", "warning")
             return redirect(url_for('direcciones.buscar'))
 
     return render_template('buscar.html')
