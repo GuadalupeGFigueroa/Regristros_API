@@ -7,6 +7,10 @@ from datetime import datetime
 from app.db.oracle_conn import obtener_conexion
 from flask import render_template, request, redirect, url_for, flash, jsonify
 from flask import Blueprint, request, jsonify
+import re
+from flask import flash, redirect, render_template
+
+
 
 direcciones_bp = Blueprint('direcciones', __name__)
 
@@ -24,11 +28,32 @@ def index():
     return render_template('index.html')
 
 # Buscar
+def validar_formato(tipo, documento):
+    patrones = {
+        "dni": r"^\d{8}[A-Z]$",
+        "nie": r"^[XYZ]\d{7}[A-Z]$",
+        "pasaporte": r"^[A-Z]{3}\d{6}$"
+    }
+    patron = patrones.get(tipo)
+    return re.match(patron, documento.upper()) if patron else False
+
 @direcciones_bp.route('/buscar', methods=['GET', 'POST'])
 def buscar():
     if request.method == 'POST':
+        tipo = request.form.get('tipo_documento')
         documentoIdentidad = request.form.get('documentoIdentidad')
+
+        import re
+        patrones = {
+            "dni": r"^\d{8}[A-Z]$",
+            "nie": r"^[XYZ]\d{7}[A-Z]$",
+            "pasaporte": r"^[A-Z]{3}\d{6}$"
+        }
         
+        if tipo not in patrones or not re.match(patrones[tipo], documentoIdentidad.upper()):
+            flash("❌ El documento no tiene un formato válido para el tipo de documento seleccionado.", "error")
+            return render_template("buscar.html")
+
         token = generar_wssegpass(CLAVE_WSSEG)  
         ciudadano = buscar_ciudadano_soap(
             documentoIdentidad=documentoIdentidad,
@@ -40,7 +65,7 @@ def buscar():
         if ciudadano:
             return render_template('ventana_resultados.html', ciudadano=ciudadano)
         else:
-            flash("Ciudadano/a no encontrado")
+            flash("⚠️ No se ha encontrado ningún resultado para el documento {tipo.upper()}'{documentoIdentidad}'", "warning")
             return redirect(url_for('direcciones.buscar'))
 
     return render_template('buscar.html')
