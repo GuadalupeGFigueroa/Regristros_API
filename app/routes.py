@@ -6,13 +6,13 @@ from dotenv import load_dotenv
 from datetime import datetime
 from app.db.oracle_conn import obtener_conexion
 from flask import render_template, request, redirect, url_for, flash, jsonify
-from flask import Blueprint, request, jsonify
 import re
 from flask import flash, redirect, render_template
-
+from flask import Blueprint, request, jsonify
 
 
 direcciones_bp = Blueprint('direcciones', __name__)
+vias_bp = Blueprint('vias_bp', __name__)
 
 load_dotenv()
 
@@ -166,9 +166,18 @@ def obtener_vias():
         try:
             conn = obtener_conexion()
             cursor = conn.cursor()
-            cursor.execute("SELECT nombre_via FROM vias WHERE municipio = 'Llanera'")
+
+            mun_id =  35  # Código del municipio de Llanera en TRM_MUN
+
+            cursor.execute("""
+                SELECT DISTINCT v.VIA_NOL
+                FROM ACCEDE_TER.T_VIA v
+                JOIN ACCEDE_TER.T_TRM tr ON v.VIA_COD = tr.TRM_VIA
+                WHERE tr.TRM_MUN = :mun_id
+            """, mun_id)
             resultados = [fila[0] for fila in cursor.fetchall()]
             return jsonify(resultados)
+        
         except Exception as e:
             print(f"❌ Error al acceder a Oracle: {e}")
             return jsonify([])
@@ -187,7 +196,7 @@ def obtener_localidades():
     try:
         conn = obtener_conexion()
         cursor = conn.cursor()
-        cursor.execute("SELECT nombre FROM LOCALIDAD ORDER BY nombre")
+        cursor.execute("SELECT DISTINCT TRM_NUC FROM ACCEDE_TER.T_TRM ORDER BY TRM_NUC")
         localidades = cursor.fetchall()
         return jsonify([loc[0] for loc in localidades])
     except Exception as e:
@@ -201,7 +210,7 @@ def obtener_tipos_via():
     try:
         conn = obtener_conexion()
         cursor = conn.cursor()
-        cursor.execute("SELECT nombre FROM TIPO_VIA ORDER BY nombre")
+        cursor.execute("SELECT TVI_DES FROM ACCEDE_TER.T_TVI ORDER BY TVI_DES")
         tipos = cursor.fetchall()
         return jsonify([tipo[0] for tipo in tipos])
     except Exception as e: 
@@ -212,17 +221,15 @@ def obtener_tipos_via():
 
 @direcciones_bp.route("/api/codigos-postales", methods = ["GET"])
 def obtener_codigos_postales():
-    nombre_localidad = request.args.get("nombre")
-
     try:
         conn = obtener_conexion()
         cursor = conn.cursor()
+        mun_id = 35 
         cursor.execute("""
-            SELECT cp.codigo
-            FROM CODIGO_POSTAL cp
-            JOIN LOCALIDAD l ON cp.id_localidad = l.id_localidad
-            WHERE l.nombre = : nombre_localidad
-        """, [nombre_localidad])
+            SELECT DISTINCT TRM_CPO 
+            FROM ACCEDE_TER.T_TRM
+            WHERE TRM_MUN = :mun_id
+        """, {"mun_id": mun_id})
         codigos = cursor.fetchall()
         return jsonify([c[0] for c in codigos])
     except Exception as e:
@@ -236,7 +243,7 @@ def obtener_via():
     try:
         conn = obtener_conexion()
         cursor = conn.cursor()
-        cursor.execute("SELECT nombre FROM VIA ORDER BY nombre")
+        cursor.execute("SELECT DISTINCT VIA_NOL FROM ACCEDE_TER.T_VIA ORDER BY VIA_NOL")
         vias = cursor.fetchall()
         return jsonify([via[0] for via in vias])
     except Exception as e: 
@@ -248,3 +255,4 @@ def obtener_via():
 @direcciones_bp.route('/editar_ciudadano/<int:id>', methods=['GET', 'POST'])
 def editar(id):
     return render_template("editar_ciudadano.html", id=id)
+

@@ -102,22 +102,13 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("boton-siguiente2").addEventListener("click", () => mostrarPaso(2));
     document.getElementById("boton-atras2").addEventListener("click", () => mostrarPaso(1));
 
-    /* Ya no es necesario porque se ha incorporado a html. 
-    Se deja comentado por si más adelante en el desarrollo se va más conveniente recuperar la función en js. 
-    
-    document.getElementById("boton-enviar").addEventListener("click", function(){
-        if (confirm("¿Desea enviar el registro?")) {
-            document.querySelector("form").submit();
-            }
-        });
-        mostrarPaso(0); */    
-    
-
+   
     function actualizarDireccionSegunMunicipio(valor){
 
         if (valor === "llanera") {
             bloqueLlanera.style.display ="block";
             bloqueOtros.style.display = "none"; 
+            cargarCodigosPostales(); 
         } else if (valor !== "llanera") {
             bloqueLlanera.style.display = "none";
             bloqueOtros.style.display = "block";
@@ -146,8 +137,45 @@ document.addEventListener("DOMContentLoaded", function () {
             })
             .catch(err => console.error("Error al cargar los tipos de vía.", err));
     }
-
     cargarTiposVia();
+
+    function cargarNombresVia() {
+        fetch("/api/via")
+            .then(res => res.json())
+            .then(vias => {
+                const select = document.getElementById("nombre_via");
+                vias.forEach(via => {
+                    const option = document.createElement("option");
+                    option.value = via;
+                    option.textContent = via;
+                    select.appendChild(option);
+                });
+            })
+            .catch(err => console.error("Error al cargar los nombres de vía.", err));
+    }
+    cargarNombresVia();
+
+    function cargarCodigosPostales(){
+        const municipio = municipioInput.value.trim().toLowerCase();
+
+        if (municipio === "llanera") {
+            fetch("/api/codigos-postales?mun_id=35")
+                .then(res => res.json())
+                .then(codigos => {
+                    const select = document.getElementById("codPostal");
+                    select.innerHTML = ""; //Limpiar anteriores
+
+                    codigos.forEach(codigo => {
+                        const option = document.createElement("option");
+                        option.value = codigo;
+                        option.textContent = codigo; 
+                        select.appendChild(option);
+                    });
+                })
+                .catch(err => console.error("Error al cargar los códigos postales.", err));
+        }
+    }
+    cargarCodigosPostales();
 
     document.getElementById("boton-siguiente2").addEventListener("click", () => {
         document.getElementById("resumen-nombre").textContent = nombreInput.value.trim();
