@@ -74,6 +74,9 @@ document.addEventListener("DOMContentLoaded", function () {
     
     //Validación para pasar al paso 2
     function validarFormulario() { 
+        const apellido2Valido = apellido2Input.value.trim() === "" ? true :
+                validarCampo(apellido2Input, errorApellido2, apellido2Regex, "Apellido no válido");
+
         const correoValido = correoInput.value.trim() === "" ? true :
                 validarCampo(correoInput, errorCorreo, emailRegex, "Correo no válido.");
             
@@ -83,7 +86,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const valido =
             validarCampo(nombreInput, errorNombre, nameRegex, "Nombre no válido.") &&
             validarCampo(apellido1Input, errorApellido1, nameRegex, "Apellido no válido.") &&
-            validarCampo(apellido2Input, errorApellido2, nameRegex, "Apellido no válido.") &&
+            apellido2Valido &&
             correoValido &&
             validarCampo(telefonoInput, errorTelefono, phoneRegex, "Teléfono no válido.") &&
             codPostal_manualValido;            
